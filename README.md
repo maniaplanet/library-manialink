@@ -12,7 +12,7 @@ Each module can be used separately or combined with each other. Just be sure to 
 The first step  once you have pasted the animation module in your manialink script is to call the `LibManialink_AnimLoop()` regularly. Each time this function is called the animations will do one step. So if you want a fluid animation call it after each `yield` instruction.
 
 Example of the basic setting :
-{% highlight js %} 
+```js
 <frame id="Frame_Global">
   <quad sizen="15 15" halign="center" valign="center" bgcolor="047" id="Quad_Anim" />
   <label posn="-30 20" halign="center" style="CardButtonMedium" text="Anim 1" scriptevents="1" id="Button_Anim1" />
@@ -31,7 +31,7 @@ main() {
   }
 }
 --></script>
-{% endhighlight %}
+```
 
 You have access to three animation functions:
 * `LibManialink_Anim()` : clear the animation queue of an element (frame, quad, label, ...) and start a new animation sequence
@@ -39,7 +39,7 @@ You have access to three animation functions:
 * `LibManialink_AnimInsert()`: insert an animation inside the animation queue
 
 Let's start with a simple animation. I want the quad to move to another position when I click on the "Anim 1" button :
-{% highlight js %} 
+```js 
 <frame id="Frame_Global">
   <quad sizen="15 15" halign="center" valign="center" bgcolor="047" id="Quad_Anim" />
   <label posn="-30 20" halign="center" style="CardButtonMedium" text="Anim 1" scriptevents="1" id="Button_Anim1" />
@@ -66,7 +66,7 @@ main() {
   }
 }
 --></script>
-{% endhighlight %}
+```
 
 The `LibManialink_Anim()` function take 3 parameters. The first one is the element and the properties we want to animate. In this case it's the position of the quad with an id equal to "Quad_Anim". The second parameter is the duration of the animation and the third the easing method.
 
@@ -87,7 +87,7 @@ You can check [this website](http://easings.net/) to see how the different easin
 All the animations start from the current properties of the animated element. This is the reason why when we click on the "Anim 1" button a second time the animation doesn't play anymore. The element is already at its desired position.
 
 You can send the quad to it's original position with a second animation bind on the "Anim 2" button :
-{% highlight js %} 
+```js 
 foreach (Event in PendingEvents) {
   if (Event.Type == CMlEvent::Type::MouseClick) {
     if (Event.ControlId == "Button_Anim1") {
@@ -97,12 +97,12 @@ foreach (Event in PendingEvents) {
     }
   }
 }
-{% endhighlight %}
+```
 
 If you press the opposing button while an animation is running you'll see that it will stop and the new animation start from the current position of the quad.
 
 You can animate multiple properties during one animation :
-{% highlight js %} 
+```js 
 foreach (Event in PendingEvents) {
   if (Event.Type == CMlEvent::Type::MouseClick) {
     if (Event.ControlId == "Button_Anim1") {
@@ -112,12 +112,12 @@ foreach (Event in PendingEvents) {
     }
   }
 }
-{% endhighlight %}
+```
 
 If you press the "Anim 2" button after the "Anim 1" button you'll see that the quad position will return to it's original value but not the other properties. Not specifying a property in the animation function will leave it at it's current value. Which is the case in the second animation where we just specify the position property.
 
 Now let's take a look at the `LibManialink_AnimChain()` function. It works exactly like `LibManialink_Anim()` but instead of clearing the animation queue of the element it will add a new animation at the end of the queue. So taking our previous example :
-{% highlight js %} 
+```js 
 foreach (Event in PendingEvents) {
   if (Event.Type == CMlEvent::Type::MouseClick) {
     if (Event.ControlId == "Button_Anim1") {
@@ -128,12 +128,12 @@ foreach (Event in PendingEvents) {
     }
   }
 }
-{% endhighlight %}
+```
 
 With this, when you click on the "Anim 1" button the quad will start to go to it's first position during 3 seconds and then move to the second one during 2 seconds.
 
 But let's say you want to have an animation where the quad go from position A to B in 5 seconds and rotate during the translation for 3 seconds starting after one second. You'll have to use the `LibManialink_AnimInsert()` for that :
-{% highlight js %} 
+```js 
 foreach (Event in PendingEvents) {
   if (Event.Type == CMlEvent::Type::MouseClick) {
     if (Event.ControlId == "Button_Anim1") {
@@ -144,12 +144,12 @@ foreach (Event in PendingEvents) {
     }
   }
 }
-{% endhighlight %}
+```
 
 The function takes one more parameter than `LibManialink_Anim()`. The first parameter is still the element and the properties we want to animate. Then we have time at which the animation will start. Finally we have the duration of the animation and the easing method.
 
 And now let's see what we could do by combining them all together :
-{% highlight js %} 
+```js 
 foreach (Event in PendingEvents) {
   if (Event.Type == CMlEvent::Type::MouseClick) {
     if (Event.ControlId == "Button_Anim1") {
@@ -165,10 +165,10 @@ foreach (Event in PendingEvents) {
     }
   }
 }
-{% endhighlight %}
+```
 
 You can also repeat a whole animation for a definite number of time or indefinitely. You must wrap the animation you want to repeat between two functions, `LibManialink_AnimRepeatStart()` and `LibManialink_AnimRepeatEnd()` :
-{% highlight js %}
+```js
 foreach (Event in PendingEvents) {
   if (Event.Type == CMlEvent::Type::MouseClick) {
     if (Event.ControlId == "Button_Anim1") {
@@ -181,7 +181,7 @@ foreach (Event in PendingEvents) {
     }
   }
 }
-{% endhighlight %}
+```
 
 `LibManialink_AnimRepeatStart()` take two arguments :
 * The time interval between each loop
@@ -190,34 +190,34 @@ In this case we want to repeat the animation each second three times.
 `LibManialink_AnimRepeatStart()` can also take only the first argument and in this case the animation will be repeated indefinitely.
 
 If you can't identify the element you want to animate by an unique id, the animations functions can take an optional parameter as first argument. You can pass the CMlControl directly to the function :
-{% highlight js %}
+```js
 declare MyControl <=> ((Page.MainFrame.Controls[0] as CMlFrame).Controls[0] as CMlFrame).Controls[0];
 LibManialink_Anim(MyControl, """<quad posn="0 0" />""", 3000, "EaseInOutElastic");
-{% endhighlight %}
+```
 
 To stop an animation on an element you can use the `LibManialink_AnimStop()` function. Two versions of the function exist. the first one take a CMlControl as argument while the second one take a Text, the ControlId of the control.
-{% highlight js %} 
+```js 
 Void LibManialink_AnimStop(CMlControl _Control)
 
 @param  _Control   The control to stop
-{% endhighlight %}
-{% highlight js %} 
+```
+```js 
 Void LibManialink_AnimStop(Text _ControlId)
 
 @param  _ControlId   The ControlId of the control to stop
-{% endhighlight %}
+```
 
 If you want to know if an animation is currently running on a control you can use the `LibManialink_IsAnimated()` function. There's two versions of the function, the first one take a CMlControl as argument while the second one take a Text, the ControlId of the control. Both return a Boolean : True if an animation is running, False otherwise.
-{% highlight js %} 
+```js 
 Boolean LibManialink_IsAnimated(CMlControl _Control)
 
 @param  _Control   The control to test
-{% endhighlight %}
-{% highlight js %} 
+```
+```js 
 Boolean LibManialink_IsAnimated(Text _ControlId)
 
 @param  _ControlId   The ControlId of the control to test
-{% endhighlight %}
+```
 
 Not all properties can be animated, this is the list of the available ones.
 CMlControl :
@@ -243,7 +243,7 @@ CMlGauge :
 
 The tooltips module allow to display a contextual help. In the next example we will display a small help text when the mouse is over a quad.
 
-{% highlight js %}
+```js
 <quad posn="0 0" sizen="10 10" halign="center" valign="center" bgcolor="fff" scriptevents="1" class="LibManialink_TooltipShow" id="Tooltip_Default" />
 <frame hidden="1" class="LibManialink_Tooltip" id="Tooltip_Default">
   <label posn="0 0 1" sizen="48 4" halign="center" valign="center2" textsize="1.5" textcolor="aaa" id="Tooltip_Message" />
@@ -265,7 +265,7 @@ main() {
   }
 }
 --></script>
-{% endhighlight %}
+```
 
 First you must include the tooltip module in your script. Then add the class `LibManialink_TooltipShow` on the quad that will display the tooltip when the mouse is over it. Create the tooltip frame with the class `LibManialink_Tooltip` associated to it. The `LibManialink_TooltipShow` quad and `LibManialink_Tooltip` frame must share the same id. The tooltip frame can contains two elements:
 * A label to display the tooltip text with the id "Tooltip_Message".
@@ -280,7 +280,7 @@ The `Tooltip_Message` label in the tooltip frame can be changed from the script 
 
 With this module you can create frames that will be draggable by the player. The frames can be constrained to a specific area or moved freely. In the example below we will create a simple constrained frame.
 
-{% highlight js %}
+```js
 <frame posn="-120 20 15" class="LibManialink_Draggable" id="Drag_1">
   <quad posn="0 0 1" sizen="30 10" valign="center" bgcolor="700" scriptevents="1" class="LibManialink_DraggableHandle" id="Drag_1" />
   <quad posn="0 0" sizen="30 30" valign="center" bgcolor="000" class="LibManialink_DraggableBoundingBox" id="Drag_1" />
@@ -300,7 +300,7 @@ main() {
   }
 }
 --></script>
-{% endhighlight %}
+```
 
 We start by creating the frame that will be draggable. This frame has the `LibManialink_Draggable` class and an id to tell it apart from other frames. This frame contains two quads. 
 One with the class `LibManialink_DraggableHandle` and the same id than the frame. Whenever the player click on this quad, he will start dragging any control with the same id and the `LibManialink_Draggable` class (can be a frame, a quad, a label, ...) even outside of the frame.
