@@ -82,6 +82,7 @@ Here is a list of the available easing methods :
 * Back
 * Elastic
 * Bounce
+
 You can check [this website](http://easings.net/) to see how the different easings affect the animation.
 
 All the animations start from the current properties of the animated element. This is the reason why when we click on the "Anim 1" button a second time the animation doesn't play anymore. The element is already at its desired position.
@@ -186,6 +187,7 @@ foreach (Event in PendingEvents) {
 `LibManialink_AnimRepeatStart()` take two arguments :
 * The time interval between each loop
 * The number of repeat
+
 In this case we want to repeat the animation each second three times.
 `LibManialink_AnimRepeatStart()` can also take only the first argument and in this case the animation will be repeated indefinitely.
 
@@ -269,7 +271,10 @@ main() {
 
 First you must include the tooltip module in your script. Then add the class `LibManialink_TooltipShow` on the quad that will display the tooltip when the mouse is over it. Create the tooltip frame with the class `LibManialink_Tooltip` associated to it. The `LibManialink_TooltipShow` quad and `LibManialink_Tooltip` frame must share the same id. The tooltip frame can contains two elements:
 * A label to display the tooltip text with the id "Tooltip_Message".
-* A quad used as a bouding box with the id "Tooltip_BoundingBox" that will prevent the tooltip to go outside of the screen. Other than that you can display what you want in your tooltip. You can have any number of tooltip frames in the manialink, so you can create different styles to fit your needs. The tooltip frame can be positioned anywhere in the manialink, it will be automatically aligned with the corresponding quad when shown.
+* A quad used as a bouding box with the id "Tooltip_BoundingBox" that will prevent the tooltip to go outside of the screen. 
+
+Other than that you can display what you want in your tooltip. You can have any number of tooltip frames in the manialink, so you can create different styles to fit your needs. The tooltip frame can be positioned anywhere in the manialink, it will be automatically aligned with the corresponding quad when shown.
+
 Once the tootltip frame is in your manialink you just have to add the `LibManialink_TooltipLoop()` function in your script where it will be called at each frame.
 The `Tooltip_Message` label in the tooltip frame can be changed from the script with the `LibManialink_SetTooltipMessage()` function. It takes two parameters :
 * The id of the tooltip to update
@@ -303,7 +308,11 @@ main() {
 ```
 
 We start by creating the frame that will be draggable. This frame has the `LibManialink_Draggable` class and an id to tell it apart from other frames. This frame contains two quads. 
+
 One with the class `LibManialink_DraggableHandle` and the same id than the frame. Whenever the player click on this quad, he will start dragging any control with the same id and the `LibManialink_Draggable` class (can be a frame, a quad, a label, ...) even outside of the frame.
+
 The second quad uses the `LibManialink_DraggableBoundingBox` class and the same id than the frame. It's used as a bounding box, preventing the frame from going offscreen or outside of the designated area.
+
 Eventually there's a quad outside of the draggable frame with the `LibManialink_DraggableArea` class and once again the same id than the frame. This quad will define the area where the bouding box of the frame can go.
+
 Once your controls are set up you can add the `LibManialink_DraggableLoop()` function in your script where it will be called each frame.
