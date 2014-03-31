@@ -1,8 +1,8 @@
-library-manialink
-=================
-
 # Purpose
 The Manialink library offer different modules and functions to use in Manialink: animations, tooltips, draggable, ...
+
+# Demo
+You can check the "library-manialink" Manialink ingame to see a demonstration of what you can do with this library.
 
 # Usage
 Each module can be used separately or combined with each other. Just be sure to include the MathLib and TextLib only once at the beginning of your script.
