@@ -1,5 +1,5 @@
 # Purpose
-The Manialink library offer different modules and functions to use in Manialink: animations, tooltips, draggable, ...
+The Manialink library is a compilation of ManiaScript functions for your Manialink scripts. It offers different modules making it easier to create dynamic content : animations, tooltips, draggable elements, ...
 
 # Demo
 You can check the "library-manialink" Manialink ingame to see a demonstration of what you can do with this library.
