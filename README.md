@@ -7,6 +7,10 @@ You can check the "library-manialink" Manialink ingame to see a demonstration of
 # Usage
 Each module can be used separately or combined with each other. Just be sure to include the MathLib and TextLib only once at the beginning of your script.
 
+* [Animations](https://github.com/maniaplanet/library-manialink#animations)
+* [Tooltips](https://github.com/maniaplanet/library-manialink#tooltips)
+* [Draggable](https://github.com/maniaplanet/library-manialink#draggable)
+
 ## Animations
 
 The first step  once you have pasted the animation module in your manialink script is to call the `LibManialink_AnimLoop()` regularly. Each time this function is called the animations will do one step. So if you want a fluid animation call it after each `yield` instruction.
